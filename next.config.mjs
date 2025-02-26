@@ -11,6 +11,7 @@ const nextConfig = {
       "res.cloudinary.com",
       "lh3.googleusercontent.com",
       "upload.wikimedia.org",
+      "cdn-icons-png.flaticon.com",
     ],
   },
   experimental: {
