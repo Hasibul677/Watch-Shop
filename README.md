@@ -26,9 +26,9 @@ Make sure you have the following installed:
 cd Watch-Shop
 
 ## Install dependencie
-  npm install 
-  @heroicons/react@^2.1.5 
-  @radix-ui/react-avatar@^1.1.0 
+  npm install \
+  @heroicons/react@^2.1.5 \
+  @radix-ui/react-avatar@^1.1.0 \
   @radix-ui/react-checkbox@^1.1.1 
   @radix-ui/react-icons@^1.3.0 
   @radix-ui/react-label@^2.1.0 
