@@ -1,50 +1,74 @@
 "use client";
 
-
-const AnimatedBackground = () => {
-  return (
-    <svg
-      className="absolute inset-0 w-full h-full"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <defs>
-        <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
-          <stop offset="0%" stopColor="#4F46E5" stopOpacity="0.2" />
-          <stop offset="100%" stopColor="#7C3AED" stopOpacity="0.2" />
-        </linearGradient>
-      </defs>
-      <rect width="100%" height="100%" fill="url(#grad1)" />
-      {[...Array(20)].map((_, i) => (
-        <motion.circle
-          key={i}
-          r={Math.random() * 20 + 10}
-          fill="#fff"
-          initial={{
-            opacity: Math.random() * 0.5 + 0.1,
-            x: Math.random() * 100 + "%",
-            y: Math.random() * 100 + "%",
-          }}
-          animate={{
-            x: Math.random() * 100 + "%",
-            y: Math.random() * 100 + "%",
-          }}
-          transition={{
-            duration: Math.random() * 10 + 20,
-            repeat: Infinity,
-            repeatType: "reverse",
-          }}
-        />
-      ))}
-    </svg>
-  );
-};
+import { Mail, Lock, AlertCircle } from "lucide-react";
+import Image from "next/image";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { FaGoogle } from "react-icons/fa";
+import { motion } from "framer-motion";
+import AnimatedBackground from "./AnimatedBackground";
 
 const Login = () => {
-  //login logic------------------------------------------------------
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  // Handle input change
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevInfo) => ({ ...prevInfo, [name]: value }));
+  };
+
+  // Handle form submission
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    try {
+      // Validate inputs
+      if (!user.email || !user.password) {
+        setError("Please fill in all the fields");
+        return;
+      }
+
+      const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+      if (!emailRegex.test(user.email)) {
+        setError("Please provide a valid email address!");
+        return;
+      }
+
+      // Sign in with credentials
+      const res = await signIn("credentials", {
+        email: user.email,
+        password: user.password,
+        redirect: false,
+      });
+
+      if (res?.error) {
+        setError("Invalid Credentials");
+      } else {
+        setError("");
+        router.push("/dashboard");
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="flex justify-center items-center min-h-screen overflow-hidden bg-blue-100 relative">
+      {/* Animated Background */}
       <AnimatedBackground />
+
+      {/* Login Form */}
       <motion.div
         initial={{ opacity: 0, y: -50 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,11 +83,11 @@ const Login = () => {
             height={80}
             className="mx-auto mb-4"
           />
-          <h2 className="text-3xl font-bold text-gray-800">Welcome Back</h2>
-          <p className="text-gray-600">Sign in to your account</p>
+          <p className="text-2xl font-bold text-gray-600">Sign in to your account</p>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-6">
+          {/* Email Input */}
           <div>
             <label
               htmlFor="email"
@@ -89,6 +113,7 @@ const Login = () => {
             </div>
           </div>
 
+          {/* Password Input */}
           <div>
             <label
               htmlFor="password"
@@ -114,6 +139,7 @@ const Login = () => {
             </div>
           </div>
 
+          {/* Error Message */}
           {error && (
             <motion.div
               initial={{ opacity: 0, y: -10 }}
@@ -125,6 +151,7 @@ const Login = () => {
             </motion.div>
           )}
 
+          {/* Submit Button */}
           <Button
             variant="default"
             type="submit"
@@ -135,6 +162,7 @@ const Login = () => {
           </Button>
         </form>
 
+        {/* Social Login */}
         <div className="mt-6">
           <div className="relative">
             <div className="absolute inset-0 flex items-center">
@@ -158,6 +186,7 @@ const Login = () => {
           </div>
         </div>
 
+        {/* Sign Up Link */}
         <p className="mt-8 text-center text-sm text-gray-600">
           Don't have an account?{" "}
           <a

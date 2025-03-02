@@ -1,5 +1,15 @@
 "use client";
-// imports ---------------------------
+
+import { Mail, Lock, User, AlertCircle, Eye, EyeOff } from "lucide-react";
+import Image from "next/image";
+import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { FaGoogle } from "react-icons/fa";
+import { motion } from "framer-motion"
+import axios from "axios";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 
 const AnimatedBackground = () => {
   return (
@@ -14,13 +24,98 @@ const AnimatedBackground = () => {
         </linearGradient>
       </defs>
       <rect width="100%" height="100%" fill="url(#grad1)" />
-      {/* logic here ------------------------------------------------------- */}
+      {[...Array(20)].map(((_, i) => {
+        <motion.circle
+          key={i}
+          r={Math.random() * 20 + 10}
+          fill="#fff"
+          initial={{
+            opacity: Math.random() * 0.5 + 0.1,
+            x: Math.random() * 100 + "%",
+            y: Math.random() * 100 + "%"
+          }}
+          animate={{
+            x: Math.random() * 100 + "%",
+            y: Math.random() * 100 + "%"
+          }}
+          transition={{
+            duration: Math.random() * 10 + 20,
+            repeat: Infinity,
+            repeatType: "reverse"
+          }}
+        />
+      }))}
     </svg>
   );
 };
 
 const Signup = () => {
-  // signup logic here ----------------------------------------------------
+  const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+  const [user, setUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    confirmPassword: "",
+  })
+  const [showPassword, setShowPassword] = useState(false);
+  const [showconfirmPassword, setShowconfirmPassword] = useState(false);
+
+  // handle input change by user
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setUser((prevInfo) => ({ ...prevInfo, [name]: value }))
+  };
+
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      if (!user.name || !user.email || !user.password || !user.confirmPassword) {
+        setError("Please fill in all the fields!");
+        return;
+      }
+      const emailRegex = /^([a-zA-Z0-9._%-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
+      if (!emailRegex.test(user.email)) {
+        setError("Please provide a email address!");
+      };
+      if (user.password !== user.confirmPassword) {
+        setError("Please provide matching passwords!");
+      };
+
+      const res = await axios.post("/api/register", {
+        name: user.name,
+        email: user.email,
+        password: user.password
+      });
+      if (res.status === 200 || res.status === 201) {
+        console.log("user registered successfully");
+
+        // sign in the user
+        const signInResult = await signIn("credentials", {
+          email: user.email,
+          password: user.password,
+          redirect: false,
+        });
+
+        if (signInResult.error) {
+          setError("Error signing in")
+        } else {
+          router.push("/dashboard")
+        }
+      }
+    } catch (error) {
+      console.log(error);
+      setError(error.response?.data?.error || "An error occured during registration");
+    } finally {
+      setLoading(false)
+    }
+  }
+
+
 
   return (
     <div className="flex justify-center items-center min-h-screen overflow-hidden bg-blue-100 relative">
@@ -35,8 +130,8 @@ const Signup = () => {
           <Image
             src="/logo.png"
             alt="Logo"
-            width={80}
-            height={80}
+            width={48}
+            height={48}
             className="mx-auto mb-4"
           />
           <h2 className="text-3xl font-bold text-gray-800">Create Account</h2>
@@ -56,7 +151,7 @@ const Signup = () => {
                 type="text"
                 name="name"
                 id="name"
-                placeholder="John Doe"
+                placeholder="Enter your name"
                 value={user.name}
                 onChange={handleInputChange}
                 className="pl-10 w-full"
@@ -135,7 +230,7 @@ const Signup = () => {
             </label>
             <div className="relative">
               <Input
-                type={showConfirmPassword ? "text" : "password"}
+                type={showconfirmPassword ? "text" : "password"}
                 name="confirmPassword"
                 id="confirmPassword"
                 placeholder="••••••••"
@@ -150,10 +245,10 @@ const Signup = () => {
               />
               <button
                 type="button"
-                onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+                onClick={() => setShowconfirmPassword(!showconfirmPassword)}
                 className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
               >
-                {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                {showconfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
               </button>
             </div>
           </div>

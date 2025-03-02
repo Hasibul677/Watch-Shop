@@ -9,7 +9,7 @@ export async function POST(request) {
     try {
         await connect();
         const { name, email, password } = await request.json();
-        const user = await User.findOne({ emial });
+        const user = await User.findOne({ email });
 
         if (user) {
             return NextResponse.json({
@@ -17,7 +17,7 @@ export async function POST(request) {
             }, { status: 400 });
         }
         const salt = await bcryptjs.genSalt(10);
-        const hashedPassword = await bcryptjs.salt(password, salt);
+        const hashedPassword = await bcryptjs.hash(password, salt);
 
         const newUser = new User({
             name,
