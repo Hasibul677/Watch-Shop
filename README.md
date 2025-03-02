@@ -66,12 +66,12 @@ cd Watch-Shop
 Watch-Shop \
 ├── /pages               # Contains route components for Next.js \
 ├── /api                 # API routes for backend logic \
-├── /auth                # User authentication pages (sign-in, sign-up)
-├── /components          # Reusable UI components
-├── /utils               # Utility functions and helpers
-├── /styles              # Global and component-level styles (Tailwind CSS)
-├── /public              # Static files (images, fonts, etc.)
-├── .env.local           # Environment variables (create this file)
-├── next.config.js       # Next.js configuration
-├── package.json         # Project dependencies
-└── README.md            # Project documentation
+├── /auth                # User authentication pages (sign-in, sign-up) \
+├── /components          # Reusable UI components \
+├── /utils               # Utility functions and helpers \
+├── /styles              # Global and component-level styles (Tailwind CSS) \
+├── /public              # Static files (images, fonts, etc.) \
+├── .env.local           # Environment variables (create this file) \
+├── next.config.js       # Next.js configuration \
+├── package.json         # Project dependencies \
+└── README.md            # Project documentation \
