@@ -63,9 +63,9 @@ npm run dev
 cd Watch-Shop
 
 ### Project Structure
-Watch-Shop/
-├── /pages               # Contains route components for Next.js
-├── /api                 # API routes for backend logic
+Watch-Shop \
+├── /pages               # Contains route components for Next.js \
+├── /api                 # API routes for backend logic \
 ├── /auth                # User authentication pages (sign-in, sign-up)
 ├── /components          # Reusable UI components
 ├── /utils               # Utility functions and helpers
