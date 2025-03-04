@@ -41,7 +41,7 @@ const orderSchema = new mongoose.Schema({
         type: Date,
         default: Date.now
     },
-    updatedAt: {
+    status: {
         type: String,
         enum: [
             "processing",
