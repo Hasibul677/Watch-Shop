@@ -1,7 +1,7 @@
 import connect from "@/utils/config/dbConnection";
 import User from "@/utils/models/User";
 import bcryptjs from "bcryptjs";
-import { NextResponse, NextRequest } from "next/server";
+import { NextResponse } from "next/server";
 
 const DEFAULT_PROFILE_IMAGE = "https://cdn-icons-png.flaticon.com/512/6388/6388307.png";
 
