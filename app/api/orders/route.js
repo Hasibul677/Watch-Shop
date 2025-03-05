@@ -55,22 +55,21 @@ export async function PUT(req) {
         };
 
         const updatedOrder = await Order.findByIdAndUpdate(orderId, {
-            status:"delivered"
-        }, {new: true}).populate({
+            status: "delivered"
+        }, { new: true }).populate({
             path: "cartProducts",
             model: Product,
         });
 
-        if(!updatedOrder){
+        if (!updatedOrder) {
             return NextResponse.json({
-                error: "Order id is required"
+                error: "Order not found"
             }, { status: 404 })
         }
 
         return NextResponse.json({
-            orders,
-            hasMore,
-            totalOrders
+            message: "Order status updated to delivered",
+            order: updatedOrder,
         })
 
     } catch (error) {
