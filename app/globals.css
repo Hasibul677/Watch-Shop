@@ -101,7 +101,7 @@
   body {
     background-color: #f5f5f5;
     /* Assuming you want a pure black background */
-    background-image: radial-gradient(circle, #9f9f9f 0px, transparent 1px),
+    background-image: radial-gradient(circle, #b28cf8 0px, transparent 1px),
       radial-gradient(circle, #707070 0.5px, transparent 0px);
     background-size: 20px 20px;
     /* This determines the spacing of the dots */
