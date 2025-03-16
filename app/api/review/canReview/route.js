@@ -1,7 +1,6 @@
 import { NextResponse } from 'next/server';
 import connect from '@/utils/config/dbConnection';
 import Order from '@/utils/models/Order';
-import { Product } from '@/utils/models/Product';
 import { authOptions } from '../../auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import mongoose from 'mongoose';
@@ -36,6 +35,7 @@ export async function GET(req) {
         };
 
         const objectIdProductId = new mongoose.Types.ObjectId(productId);
+        
         const hasPurchased = await Order.findOne({
             user: session.user._id,
             "cartProducts.product": objectIdProductId,
