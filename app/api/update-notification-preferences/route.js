@@ -11,10 +11,12 @@ export async function POST(req) {
         const session = await getServerSession(authOptions);
 
         if (!session) {
-            return NextResponse.json({ canReview: false }, { status: 200 });
+            return NextResponse.json({ error:"notification preferences not found" }, { status: 404 });
         }
 
         const body = await req.json();
+
+        const {orderUpdates, promotions} = body;
 
         const user = await User.findOneAndUpdate(
             {
