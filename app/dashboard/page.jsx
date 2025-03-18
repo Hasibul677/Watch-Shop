@@ -19,7 +19,7 @@ const Page = () => {
                 </span>
                 <Button
                     onClick={() => signOut()}
-                    variant="destructive"
+                    variant="myButton"
                     className="text-white rounded-lg px-3 py-3 uppercase">
                     Logout
                 </Button>
