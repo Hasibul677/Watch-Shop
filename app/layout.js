@@ -1,4 +1,4 @@
-import { Inter, Poppins, Mulish, Playfair_Display } from "next/font/google";
+import { Inter, Poppins, Mulish, Playfair_Display, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import AuthProvider from "@/components/AuthProvider";
 import Navbar from "@/components/Navbar/Navbar";
@@ -8,6 +8,7 @@ const mulish = Mulish({ subsets: ["latin"] });
 const poppins = Poppins({ subsets: ["latin"], weight: "400" });
 const inter = Inter({ subsets: ["latin"] });
 const playfair = Playfair_Display({ subsets: ["latin"] });
+const notoSans = Noto_Sans({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Watch Store",
@@ -18,7 +19,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={playfair.className}
+        className={notoSans.className}
         suppressContentEditableWarning
         suppressHydrationWarning
       >
