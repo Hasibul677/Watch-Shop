@@ -15,7 +15,90 @@ import UserSection from "./UserSection";
 import { Input } from "../ui/input";
 
 const Navbar = () => {
-  //logic goes here
+  const router = useRouter();
+  const { data: session } = useSession();
+  const [isOpen, setIsOpen] = useState(false);
+  const [productOpen, setProductOpen] = useState(false);
+  const [admin, setAdmin] = useState(false);
+  const [adminPanelMob, setAdminPanelMob] = useState(false);
+  const [productModile, setProductModile] = useState(false);
+  const [searchTerm, setSearchTerm] = useState(false);
+  const [resultArr, setResultArr] = useState([]);
+
+  const firstTwelveItems = resultArr.slice(0, 12);
+  const [isSearching, setIsSearching] = useState(false);
+  const user = session?.user;
+
+  const handleMenuOpen = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const setProductModile1 = () => {
+    setProductModile(!productModile);
+  };
+
+  const setAdminPanelMobile = () => {
+    setAdminPanelMob(!adminPanelMob);
+  };
+
+  const setMenuClose = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const handleSearchClick = () => {
+    setSearchOpen(true);
+    setProductOpen(false);
+  };
+
+  function debounce(func, timeout = 1000) {
+    let timer;
+    return (...args) => {
+      clearTimeout(timer);
+      timer = setTimeout(() => {
+        func.apply(this, args);
+      }, timeout)
+    }
+  };
+
+  const debounceSearch = debounce((currentSearchTerm) => {
+    handleSubmit(currentSearchTerm)
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSearchTerm((prevState) => ({ ...prevState, [name]: value }));
+    debounceSearch(value);
+  };
+
+  const handleSubmit = async (search) => {
+    if (!search) return;
+    setIsSearching(true);
+    try {
+      const res = await axios.get(`/api/products/${search}`);
+      setIsSearching(false);
+      if (res.status === 200) {
+        setResultArr(res.data);
+      }
+    } catch (error) {
+      setIsSearching(false);
+      console.log(error)
+    }
+  };
+
+  const handleSearchClose=()=>{
+    setSearchOpen(false);
+    setIsOpen(false);
+  };
+
+  useEffect(()=>{
+  if(searchTerm.search){
+    handleSubmit(searchTerm.search);
+  }else{
+    setResultArr([]);
+  }
+
+  },[searchTerm])
+
 
   return (
     <div className="z-40">
