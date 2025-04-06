@@ -9,7 +9,28 @@ import toast from "react-hot-toast";
 import Image from "next/image";
 
 const ProductDetails = ({ product }) => {
-  //logic here
+  const [isWishlisted, setIsWishlisted] = useState(false);
+  const addItem = useCartStore((state) => state.addItem);
+
+  const handleAddToCart = async () => {
+    addItem(product);
+  };
+  const handleToggleWishlist = async () => {
+    try {
+      if (isWishlisted) {
+        await axios.delete("/api/wishlist", {
+          data: { productId: product._id }
+        });
+      } else {
+        await axios.post("/api/wishlist", {
+          data: { productId: product._id }
+        });
+      }
+      setIsWishlisted(isWishlisted);
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   // Fallback image URL
   const fallbackImageUrl = "https://via.placeholder.com/400";
@@ -67,9 +88,8 @@ const ProductDetails = ({ product }) => {
           <Button
             onClick={handleToggleWishlist}
             variant="outline"
-            className={`flex-1 ${
-              isWishlisted ? "bg-red-100 text-red-600 border-red-600" : ""
-            }`}
+            className={`flex-1 ${isWishlisted ? "bg-red-100 text-red-600 border-red-600" : ""
+              }`}
           >
             <Heart className="mr-2 h-5 w-5" />{" "}
             {isWishlisted ? "Wishlisted" : "Add to Wishlist"}
