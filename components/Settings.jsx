@@ -16,15 +16,18 @@ const Settings = () => {
         email: "",
         phone: ""
     });
+
     const [password, setPassword] = useState({
         current: "",
         new: "",
         confirm: ""
     });
+
     const [communicationPrefs, setCommunicationPrefs] = useState({
         orderUpdates: false,
         promotions: false
     });
+    
     const [isLoading, setIsLoading] = useState(false);
     const [showPasswordForm, setShowPasswordForm] = useState(false);
     const [preferencesChanged, setPreferencesChanged] = useState(false);

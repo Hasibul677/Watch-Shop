@@ -24,6 +24,7 @@ const Navbar = () => {
   const [productModile, setProductModile] = useState(false);
   const [searchTerm, setSearchTerm] = useState(false);
   const [resultArr, setResultArr] = useState([]);
+  const [searchOpen, setSearchOpen] = useState(false);
 
   const firstTwelveItems = resultArr.slice(0, 12);
   const [isSearching, setIsSearching] = useState(false);
