@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server';
 import connect from '@/utils/config/dbConnection';
 import Order from '@/utils/models/Order';
-import { authOptions } from '../../auth/[...nextauth]/route';
 import { getServerSession } from 'next-auth';
 import mongoose from 'mongoose';
 import Review from '@/utils/models/Review';
 import { Product } from '@/utils/models/Product';
+import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 
 // Helper function to validate ObjectId
 const isValidObjectId = (id) => mongoose.Types.ObjectId.isValid(id);

@@ -7,9 +7,11 @@ import WatchHero from "@/components/HomepageComponents/HeroVideo";
 import NewsletterComponent from "@/components/HomepageComponents/NewsletterComponent";
 import WatchOfTheMonth from "@/components/HomepageComponents/WatchOfTheMonth";
 import WatchReviewSlider from "@/components/HomepageComponents/WatchReviewSlider";
+import { useSession } from "next-auth/react";
 
 
 export default function Home() {
+  const {data: session} = useSession();
   return (
     <div>
       <WatchHero />
@@ -19,7 +21,6 @@ export default function Home() {
       <WatchOfTheMonth />
       <WatchReviewSlider />
       <NewsletterComponent />
-
     </div>
   );
 }

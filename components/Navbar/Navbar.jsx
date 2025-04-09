@@ -22,10 +22,10 @@ const Navbar = () => {
   const [admin, setAdmin] = useState(false);
   const [adminPanelMob, setAdminPanelMob] = useState(false);
   const [productModile, setProductModile] = useState(false);
-  const [searchTerm, setSearchTerm] = useState(false);
-  const [resultArr, setResultArr] = useState([]);
   const [searchOpen, setSearchOpen] = useState(false);
-
+  const [category, setCategory ] = useState("Rolex")
+  const [searchTerm, setSearchTerm] = useState({ search: '' });
+  const [resultArr, setResultArr] = useState([]);
   const firstTwelveItems = resultArr.slice(0, 12);
   const [isSearching, setIsSearching] = useState(false);
   const user = session?.user;
@@ -68,7 +68,7 @@ const Navbar = () => {
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSearchTerm((prevState) => ({ ...prevState, [name]: value }));
-    debounceSearch(value);
+    debounceSearch (value);
   };
 
   const handleSubmit = async (search) => {
