@@ -2,9 +2,9 @@
 
 import { Mail, Lock, User, AlertCircle, Eye, EyeOff } from "lucide-react";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { FaGoogle } from "react-icons/fa";
 import { motion } from "framer-motion"
 import axios from "axios";
@@ -12,6 +12,15 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
 const AnimatedBackground = () => {
+  const {data: session} = useSession();
+  const router = useRouter();
+
+    useEffect(()=>{
+      if(session?.user){
+        router.push("/");
+      }
+    },[session?.user]);
+
   return (
     <svg
       className="absolute inset-0 w-full h-full"

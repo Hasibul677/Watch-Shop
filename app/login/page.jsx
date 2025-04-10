@@ -2,9 +2,9 @@
 
 import { Mail, Lock, AlertCircle } from "lucide-react";
 import Image from "next/image";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { signIn } from "next-auth/react";
+import { signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { FaGoogle } from "react-icons/fa";
@@ -13,6 +13,7 @@ import AnimatedBackground from "./AnimatedBackground";
 
 const Login = () => {
   const router = useRouter();
+  const {data: session} = useSession();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [user, setUser] = useState({
@@ -62,6 +63,13 @@ const Login = () => {
       setLoading(false);
     }
   };
+
+  useEffect(()=>{
+    if(session?.user){
+      router.push("/");
+    }
+  },[session?.user]);
+
 
   return (
     <div className="flex justify-center items-center min-h-screen overflow-hidden bg-blue-100 relative">

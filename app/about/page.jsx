@@ -23,7 +23,7 @@ const AboutPage = () => {
       <header className="bg-blue-600 text-white">
         <div className="container mx-auto px-4 py-16 text-center">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
-            About EcommWatch
+            About Watch Store
           </h1>
           <p className="text-xl md:text-2xl mb-8">
             Crafting Time, Delivering Excellence
@@ -32,7 +32,7 @@ const AboutPage = () => {
             width={800}
             height={800}
             src={About1}
-            alt="EcommWatch storefront"
+            alt="Watch Store storefront"
             className="rounded-lg shadow-lg mx-auto"
           />
         </div>
@@ -56,7 +56,7 @@ const AboutPage = () => {
             </div>
             <div className="md:w-1/2 md:pl-8">
               <p className="text-lg mb-4">
-                Founded in 2010, EcommWatch began with a simple yet powerful
+                Founded in 2010, Watch Store began with a simple yet powerful
                 vision: to make exquisite timepieces accessible to watch
                 enthusiasts worldwide. Our journey started in a small workshop,
                 fueled by passion and craftsmanship.
@@ -167,7 +167,7 @@ const AboutPage = () => {
               </div>
             </div>
             <p className="text-lg italic">
-              "EcommWatch has been my go-to for premium timepieces for years.
+              "Watch Store has been my go-to for premium timepieces for years.
               Their collection is unparalleled, and their customer service is
               simply outstanding. I always feel confident in my purchases from
               them."
@@ -188,10 +188,10 @@ const AboutPage = () => {
       <section className="bg-blue-600 text-white py-16">
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-3xl md:text-4xl font-bold mb-4">
-            Join the EcommWatch Family
+            Join the Watch Store Family
           </h2>
           <p className="text-xl mb-8">
-            Discover your perfect timepiece today and experience the EcommWatch
+            Discover your perfect timepiece today and experience the Watch Store
             difference.
           </p>
           <button className="bg-white text-blue-600 font-bold py-3 px-8 rounded-full text-lg hover:bg-blue-100 transition duration-300">

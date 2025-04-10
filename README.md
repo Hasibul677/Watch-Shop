@@ -1,6 +1,6 @@
-# Watch Shop
+# Watch Store
 
-Welcome to the Watch Shop project! This application allows users to browse and shop for watches, with full authentication features including sign-in and sign-up.
+Welcome to the Watch Store project! This application allows users to browse and shop for watches, with full authentication features including sign-in and sign-up.
 
 ## Features
 - User authentication (sign in and sign up)
