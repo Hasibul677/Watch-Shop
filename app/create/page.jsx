@@ -14,15 +14,15 @@ const Create = () => {
   const router = useRouter();
   const id = session?.user?._id;
   const [imageUrls, setImageUrls] = useState([
-    "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722781351/eagefvawsxsib8o4wjrs.jpg",
-    "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765107/eddchi8y2omcs3au5z4g.jpg",
-    "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765112/qiadxoicwen62rxwp3re.jpg",
-    "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765119/hbv70qpd2bqknwrdtgzm.jpg",
-    "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765124/gjzlngmg4qe6o4up2jof.jpg",
-    "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765131/yxpbjw1bwvlkmrjddooe.jpg",
-    "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765136/vvvb9cqrpeeazy4ontcl.jpg",
-    "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765144/arzsfovuf4bv0qwcjaq5.jpg",
-    "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765140/rj5ssxto2uyeqx5rje5v.jpg",
+    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722781351/eagefvawsxsib8o4wjrs.jpg",
+    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765107/eddchi8y2omcs3au5z4g.jpg",
+    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765112/qiadxoicwen62rxwp3re.jpg",
+    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765119/hbv70qpd2bqknwrdtgzm.jpg",
+    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765124/gjzlngmg4qe6o4up2jof.jpg",
+    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765131/yxpbjw1bwvlkmrjddooe.jpg",
+    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765136/vvvb9cqrpeeazy4ontcl.jpg",
+    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765144/arzsfovuf4bv0qwcjaq5.jpg",
+    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765140/rj5ssxto2uyeqx5rje5v.jpg",
   ]);
 
   const [product, setProduct] = useState({
@@ -262,38 +262,26 @@ const Create = () => {
                 required
               >
                 <option value="">Select movement</option>
-                <option value="Seiko NH35a Automatik Movement">
-                  Seiko NH35a Automatik Movement
+                <option value="Rolex 3235 Automatic Movment">
+                  Rolex 3235 Automatic Movment
                 </option>
-                <option value="Seiko NH34 GMT Automatik Movement">
-                  Seiko NH34 GMT Automatik Movement
+                <option value="Rolex 3236 Automatic Movment">
+                  Rolex 3236 Automatic Movment
                 </option>
-                <option value="Seiko NH35a Date Automatik Movement">
-                  Seiko NH35a Date Automatik Movement
+                <option value="Rolex 3237 Automatic Movment">
+                  Rolex 3237 Automatic Movment
                 </option>
-                <option value="Myiota 8285 Automatik Movement">
-                  Myiota 8285 Automatik Movement
+                <option value="Patek Philipe 5677 Automatic Movment">
+                  Patek Philipe 5677 Automatic Movment
                 </option>
-                <option value="Seiko NH36 Day Date Automatik Movement">
-                  Seiko NH36 Day Date Automatik Movement
+                <option value="Patek Philipe 5678 Automatic Movment">
+                  Patek Philipe 5678 Automatic Movment
                 </option>
-                <option value="Seiko NH37 Automatik Movement">
-                  Seiko NH37 Automatik Movement
+                <option value="Audemars Piguet 8887 Automatic Movment">
+                  Audemars Piguet 8887 Automatic Movment
                 </option>
-                <option value="Seiko NH38 Automatik Movement">
-                  Seiko NH38 Automatik Movement
-                </option>
-                <option value="Seiko NH39 Automatik Movement">
-                  Seiko NH39 Automatik Movement
-                </option>
-                <option value="Seiko NH70a Automatik Movement">
-                  Seiko NH70a Automatik Movement
-                </option>
-                <option value="Seiko NH71a Automatik Movement">
-                  Seiko NH71a Automatik Movement
-                </option>
-                <option value="Seiko NH72 Automatik Movement">
-                  Seiko NH72 Automatik Movement
+                <option value="Audemars Piguet 8888 Automatic Movment">
+                  Audemars Piguet 8888 Automatic Movment
                 </option>
               </select>
             </div>
