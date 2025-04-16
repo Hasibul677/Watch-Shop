@@ -13,21 +13,12 @@ const Create = () => {
   const { data: session } = useSession();
   const router = useRouter();
   const id = session?.user?._id;
-  const [imageUrls, setImageUrls] = useState([
-    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722781351/eagefvawsxsib8o4wjrs.jpg",
-    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765107/eddchi8y2omcs3au5z4g.jpg",
-    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765112/qiadxoicwen62rxwp3re.jpg",
-    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765119/hbv70qpd2bqknwrdtgzm.jpg",
-    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765124/gjzlngmg4qe6o4up2jof.jpg",
-    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765131/yxpbjw1bwvlkmrjddooe.jpg",
-    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765136/vvvb9cqrpeeazy4ontcl.jpg",
-    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765144/arzsfovuf4bv0qwcjaq5.jpg",
-    // "https://res.cloudinary.com/dvjs0xmcy/image/upload/v1722765140/rj5ssxto2uyeqx5rje5v.jpg",
-  ]);
+  const [imageUrls, setImageUrls] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const [product, setProduct] = useState({
     user: id,
-    name: "Seiko Mod ",
+    name: "Seiko Mod",
     description:
       "A Seiko mod watch is a customized timepiece that combines the reliable craftsmanship of Seiko with unique, personalized modifications. These modifications can range from simple changes, like swapping out the bezel or the dial, to more complex overhauls involving the movement and case design. Enthusiasts often modify Seiko watches to create unique aesthetics that reflect their personal style, drawing inspiration from high-end luxury models, vintage designs, or completely original concepts. The modular nature of Seiko watches, particularly the SKX and 5 series, makes them ideal canvases for such creative endeavors.The allure of Seiko mod watches lies in the blend of practicality and individuality. These customizations not only enhance the watch's appearance but can also improve its functionality and durability. For instance, modders might upgrade the crystal to sapphire for better scratch resistance or replace the stock hands with luminescent ones for improved visibility. The result is a timepiece that maintains Seiko's renowned reliability and precision while standing out as a one-of-a-kind accessory. Whether you're an experienced watch enthusiast or new to the hobby, a Seiko mod watch offers a unique opportunity to own a personalized piece of horological art.",
     condition: "Brand New",
@@ -72,6 +63,7 @@ const Create = () => {
     e.preventDefault();
     if (imageUrls.length > 0) {
       try {
+        setLoading(true)
         const productData = {
           ...product,
           images: imageUrls,
@@ -82,12 +74,18 @@ const Create = () => {
         }
       } catch (error) {
         console.error(error);
+      }finally{
+        setLoading(false);
       }
     }
   };
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white py-12 px-4 sm:px-6 lg:px-8">
+      {loading ? <div className="flex justify-center items-center h-screen">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-500"></div>
+      </div> :
+
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
         <div className="bg-blue-600 py-6">
           <h1 className="text-center text-white text-3xl font-extrabold">
@@ -481,7 +479,7 @@ const Create = () => {
             </Button>
           </div>
         </form>
-      </div>
+      </div>}
     </div>
   );
 };

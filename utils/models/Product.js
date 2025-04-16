@@ -12,17 +12,17 @@ const ProductShema = new mongoose.Schema({
     price: {
         type: Number,
     },
-    orginalPrice: {
+    originalPrice: {
         type: Number,
     },
     brand: {
-        type: Number,
+        type: String,
     },
     material: {
-        type: Number,
+        type: String,
     },
     bracelet: {
-        type: Number,
+        type: String,
     },
     condition: {
         type: String

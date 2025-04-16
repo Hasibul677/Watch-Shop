@@ -35,7 +35,9 @@ const FeaturedProduct = () => {
 
     useEffect(() => {
         fetchFeaturedProduct();
-    }, [])
+    }, []);
+
+    console.log("featuredWatch1", featuredWatch1)
 
     return (
         <header className="relative bg-gradient-to-r from-slate-300 to-slate-400 text-white sm:h-[58rem] flex items-center overflow-hidden">
@@ -124,16 +126,16 @@ const FeaturedProduct = () => {
                             </p>
                             <div className="flex items-center mb-6">
                                 <span className="text-3xl font-bold text-blue-600">
-                                    ${featuredWatch1?.price.toLocaleString()}
+                                    ${featuredWatch1?.price?.toLocaleString()}
                                 </span>
                                 <span className="text-xl text-gray-500 line-through ml-4">
-                                    ${featuredWatch1?.originalPrice.toLocaleString()}
+                                    ${featuredWatch1?.originalPrice?.toLocaleString()}
                                 </span>
                                 <span className="ml-4 hidden md:block bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-semibold">
                                     Save $
                                     {(
                                         featuredWatch1?.originalPrice - featuredWatch1?.price
-                                    ).toLocaleString()}
+                                    )?.toLocaleString()}
                                 </span>
                             </div>
                             <div className="grid grid-cols-2 gap-4 mb-6 text-sm">
