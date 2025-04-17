@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server';
 import connect from '@/utils/config/dbConnection';
 import { Product } from '@/utils/models/Product';
 
-export async function GET(req, { params }) {
+export async function GET(req, context) {
     await connect();
 
-    const { productId } = params;
+    const { productId } = await context.params;
 
     try {
         const product = await Product.findById(productId);
@@ -21,13 +21,14 @@ export async function GET(req, { params }) {
             error: "Failed to fetching product"
         }, { status: 500 })
     }
-}
+};
 
-export async function PUT(req, { params }) {
+export async function PUT(req, context) {
 
     await connect();
-    const { productId } = params;
+    const { productId } = await context.params;
     const body = await req.json();
+
 
     try {
         const updatedProduct = await Product.findByIdAndUpdate(productId, body, { new: true, runValidators: true });
@@ -47,9 +48,9 @@ export async function PUT(req, { params }) {
     }
 }
 
-export async function DELETE(req, { params }) {
+export async function DELETE(req, context) {
     await connect();
-    const { productId } = params;
+    const { productId } = await context.params;
 
     try {
         const deletedProduct = await Product.findByIdAndDelete(productId);

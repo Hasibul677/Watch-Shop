@@ -1,51 +1,71 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSession } from "next-auth/react";
 import { CldUploadButton } from "next-cloudinary";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import toast, { Toaster } from "react-hot-toast";
 import Image from "next/image";
 import PageLoader from "@/commonComponents/Loader/page";
 
-const Create = () => {
+const EditProduct = () => {
   const { data: session } = useSession();
+  const { productId } = useParams();
   const router = useRouter();
-  const id = session?.user?._id;
   const [imageUrls, setImageUrls] = useState([]);
   const [loading, setLoading] = useState(false);
-
   const [product, setProduct] = useState({
-    user: id,
-    name: "Seiko Mod",
-    description:
-      "A Seiko mod watch is a customized timepiece that combines the reliable craftsmanship of Seiko with unique, personalized modifications. These modifications can range from simple changes, like swapping out the bezel or the dial, to more complex overhauls involving the movement and case design. Enthusiasts often modify Seiko watches to create unique aesthetics that reflect their personal style, drawing inspiration from high-end luxury models, vintage designs, or completely original concepts. The modular nature of Seiko watches, particularly the SKX and 5 series, makes them ideal canvases for such creative endeavors.The allure of Seiko mod watches lies in the blend of practicality and individuality. These customizations not only enhance the watch's appearance but can also improve its functionality and durability. For instance, modders might upgrade the crystal to sapphire for better scratch resistance or replace the stock hands with luminescent ones for improved visibility. The result is a timepiece that maintains Seiko's renowned reliability and precision while standing out as a one-of-a-kind accessory. Whether you're an experienced watch enthusiast or new to the hobby, a Seiko mod watch offers a unique opportunity to own a personalized piece of horological art.",
-    condition: "Brand New",
-    bracelet: "Oyster Bracelet",
-    brand: "Rolex",
-    material: "Stainless Steel",
+    user: "",
+    name: "",
+    description: "",
+    condition: "",
+    bracelet: "",
+    brand: "",
+    material: "",
     images: [],
-    price: 12500,
-    originalPrice: 15000,
-    movement: "Seiko NH35a Date Automatik Movement",
-    thickness: "12mm",
-    glass: "Saphire Glass - Scratch Proof",
-    luminova: "Yes",
-    casematerial: "316L Stainless Steel",
-    crown: "Screwed Down",
-    bandsize: "14.5cm to 22cm (Adjustable)",
-    lugs: "20mm",
-    water: "5 ATM",
+    price: 0,
+    originalPrice: 0,
+    movement: "",
+    thickness: "",
+    glass: "",
+    luminova: "",
+    casematerial: "",
+    crown: "",
+    bandsize: "",
+    lugs: "",
+    water: "",
   });
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      setLoading(true)
+      try {
+        const res = await axios.get(`/api/product/${productId}`);
+        const fetchedProduct = res.data;
+        setProduct(fetchedProduct);
+        setImageUrls(fetchedProduct.images);
+      } catch (error) {
+        console.log(error)
+      } finally{
+        setLoading(false)
+      }
+    };
+
+    if (productId) {
+      fetchProduct();
+    }
+  }, [productId]);
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct((prevState) => ({
       ...prevState,
-      [name]: value,
-    }));
+      [name]: value
+    }))
   };
 
   const handleUpload = (result) => {
@@ -69,26 +89,41 @@ const Create = () => {
           ...product,
           images: imageUrls,
         };
-        const productRes = await axios.post("/api/products", productData);
+        const productRes = await axios.put(`/api/product/${productId}`, productData);
         if (productRes.status === 200 || productRes.status === 201) {
-          router.push("/");
+          toast.success("Product edited successfully!")
+          router.push("/products");
         }
       } catch (error) {
+        toast.error("Product cloudn't be updated")
         console.error(error);
-      }finally{
+      } finally {
         setLoading(false);
       }
     }
   };
 
+  const handleDelete = async () => {
+    try {
+      const res = await axios.delete(`/api/product/${productId}`);
+      if (res.status === 200) {
+        toast.success("Product deleted successfully!")
+        router.push("/products");
+      }
+    } catch (error) {
+      toast.error("Product cloudn't be deleted")
+      console.error(error);
+    }
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white py-12 px-4 sm:px-6 lg:px-8">
-      {loading ? <PageLoader/> :
+      <Toaster position="top-right" />
 
-      <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
+      {loading ? <PageLoader /> : <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
         <div className="bg-blue-600 py-6">
           <h1 className="text-center text-white text-3xl font-extrabold">
-            Submit a Product
+            Edit Product
           </h1>
         </div>
         <form onSubmit={handleSubmit} className="px-8 py-10 space-y-8">
@@ -153,8 +188,8 @@ const Create = () => {
               {imageUrls.map((url, index) => (
                 <div key={index} className="relative group">
                   <Image
-                  height={500}
-                  width={500}
+                    height={500}
+                    width={500}
                     className="h-24 w-full object-cover rounded-md"
                     src={url}
                     alt={`Uploaded image ${index + 1}`}
@@ -258,7 +293,6 @@ const Create = () => {
                 className="mt-1 block w-full pl-3 pr-10 py-2 text-base border-gray-300 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm rounded-md"
                 required
               >
-                <option value="">Select movement</option>
                 <option value="Rolex 3235 Automatic Movement">
                   Rolex 3235 Automatic Movement
                 </option>
@@ -468,13 +502,20 @@ const Create = () => {
             </div>
           </div>
 
-          <div className="flex justify-end">
+          <div className="flex justify-between">
             <Button
               variant="myButton"
               type="submit"
               className="px-8 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
             >
-              Submit Product
+              Update Product
+            </Button>
+            <Button
+              onClick={handleDelete}
+              variant="destructive"
+              className="px-8 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+            >
+              Delete Product
             </Button>
           </div>
         </form>
@@ -483,4 +524,4 @@ const Create = () => {
   );
 };
 
-export default Create;
+export default EditProduct;

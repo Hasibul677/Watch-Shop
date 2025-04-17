@@ -39,18 +39,18 @@ const ProductShema = new mongoose.Schema({
     averageRating: { type: Number, default: 0 },
     numReviews: { type: Number, default: 0 },
     featured: { type: Boolean, default: false },
-    movment: {
+    movement: {
         type: String,
         enum: [
-            "Rolex 3235 Automatic Movment",
-            "Rolex 3236 Automatic Movment",
-            "Rolex 3237 Automatic Movment",
-            "Patek Philipe 5677 Automatic Movment",
-            "Patek Philipe 5678 Automatic Movment",
-            "Audemars Piguet 8887 Automatic Movment",
-            "Audemars Piguet 8888 Automatic Movment",
+            "Rolex 3235 Automatic Movement",
+            "Rolex 3236 Automatic Movement",
+            "Rolex 3237 Automatic Movement",
+            "Patek Philipe 5677 Automatic Movement",
+            "Patek Philipe 5678 Automatic Movement",
+            "Audemars Piguet 8887 Automatic Movement",
+            "Audemars Piguet 8888 Automatic Movement",
         ],
-        default: "Rolex 3235 Automatic Movment"
+        default: "Rolex 3235 Automatic Movement"
     },
     thickness: {
         type: String,
