@@ -70,14 +70,72 @@ const Products = () => {
         }
     };
 
-    const handleFeature = async (productId)=>{
+    const handleFeature = async (productId) => {
         try {
-            
+            const res = await axios.put(`/api/product/featured/${productId}`);
+            toast.success("Successfully updated featured product");
         } catch (error) {
             toast.error("Error fetching featured products")
-            console.log(error);  
+            console.log(error);
         }
-    }
+    };
+
+    const handleSubmit = async () => {
+        if (isSearching) {
+            return;
+        }
+        setIsSearching(true);
+        setLoading(true);
+        setError(null);
+        try {
+            const res = await axios.get(`/api/products/allProducts`, { params: { page: currentPage, limit: itemsPerPage } });
+            const { products, total } = res.data;
+            if (res.status === 200 || res.status === 201) {
+                setProducts(products);
+                setTotalPages(Math.ceil(total / itemsPerPage));
+            }
+        } catch (error) {
+            console.log(error);
+            setError("Failed to load product, please try again in a few seconds");
+            toast.error("Failed to load product, please try again in a few seconds")
+        } finally {
+            setIsSearching(false);
+            setLoading(false);
+        }
+    };
+
+    const toggleWishlist = async (productId) => {
+        if (!session) {
+            router.push("/login");
+            return;
+        }
+        try {
+            if (wishlist.includes(productId)) {
+                await axios.delete("/api/wishlist", { data: { productId } });
+                setWishlist(wishlist.filter((id) => id !== productId));
+                toast.success("Removed item from wishlist");
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const handleAddToCart = (product) => {
+        addItem(product);
+        toast.success("Added item to Cart");
+    };
+
+    const handlePageChange = (newPage) => {
+        setCurrentPage(newPage);
+    };
+
+    if (loading) {
+        return <LoadingErrorComponent loading={true} />
+    };
+    
+    if (error) {
+        return <LoadingErrorComponent error={error} />
+    };
 
 
     return (
