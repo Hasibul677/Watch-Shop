@@ -5,16 +5,53 @@ import axios from "axios";
 import ProductGrid from "@/components/products/ProductGrid";
 import { useSession } from "next-auth/react";
 import LoadingErrorComponent from "@/components/Loader/LoadingErrorComponent";
+import { useParams } from "next/navigation";
 
-export default function CategoryPage({ params }) {
-  const { brand } = params;
+export default function CategoryPage() {
+  const { brand } = useParams();
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [wishlist, setWishlist] = useState([]);
   const { data: session } = useSession();
 
-  //logic here
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        setLoading(true);
+        const res = await axios.get(`/api/products/brand/${brand}`);
+        setProducts(res.data)
+      } catch (error) {
+        console.log(error);
+        setError("Error loading product", error)
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchProduct();
+  }, [brand]);
+
+  useEffect(() => {
+    const fetchWishList = async () => {
+      if (session) {
+        try {
+          const res = await axios.get(`/api/wishlist`);
+          const { items } = res.data;
+          if (Array.isArray(items)) {
+            setWishlist(items.map((item) => item._id));
+          }
+        } catch (error) {
+          console.log(error);
+          setError("Error loading product", error)
+        }
+      }
+    }
+    fetchWishList();
+  }, [brand]);
+
+  const handleWishlistUpdate =()=>{}
+
+
 
   return (
     <div className="flex flex-col min-h-screen">
