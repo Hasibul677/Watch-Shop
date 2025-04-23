@@ -6,6 +6,7 @@ import ProductGrid from "@/components/products/ProductGrid";
 import { useSession } from "next-auth/react";
 import LoadingErrorComponent from "@/components/Loader/LoadingErrorComponent";
 import { useParams } from "next/navigation";
+import PageLoader from "@/commonComponents/Loader/page";
 
 export default function CategoryPage() {
   const { brand } = useParams();
@@ -49,9 +50,23 @@ export default function CategoryPage() {
     fetchWishList();
   }, [brand]);
 
-  const handleWishlistUpdate =()=>{}
+  const handleWishlistUpdate = (productId, isAdding) => {
+    if (isAdding) {
+      setWishlist([...wishlist, productId]);
+    } else {
+      setWishlist(wishlist.filter((id) => id !== productId));
+    };
+  };
 
+  if (loading) {
+    return (
+      <PageLoader />
+    )
+  };
 
+  if (error) {
+    <LoadingErrorComponent error={error} />
+  }
 
   return (
     <div className="flex flex-col min-h-screen">

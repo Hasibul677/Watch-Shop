@@ -56,7 +56,7 @@ const ProductDrawer = ({
                 ))}
               </ul>
             </div>
-            <div>
+            {/* <div>
               <div className="bg-gray-400 h-[2px] w-full"></div>
               <div className="bg-gray-50/60 h-30 w-full flex flex-col text-center justify-center items-center">
                 <p className="text-2xl  mt-4">Subscribe to our Newsletter!</p>
@@ -67,7 +67,7 @@ const ProductDrawer = ({
                   />
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
           <div className="bg-gray-400 h-[88%] mt-[2%] w-[2px]"></div>
         </div>

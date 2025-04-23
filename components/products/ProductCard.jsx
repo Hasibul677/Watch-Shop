@@ -30,7 +30,7 @@ export default function ProductCard({ product, onWishlistUpdate }) {
   }, []);
 
   const isInWishlist = useMemo(() => {
-    return wishlistItems.some((item) => item._id === product._id)
+    return wishlistItems?.some((item) => item._id === product._id)
   }, [wishlistItems, product._id]);
 
   const handleAddToCart = (e) => {
@@ -65,6 +65,7 @@ export default function ProductCard({ product, onWishlistUpdate }) {
       toast.error("something wrong with the wishlist")
     }
   }
+
 
   return (
     <div

@@ -81,10 +81,14 @@ const Create = () => {
     }
   };
 
+  if (loading) {
+    return (
+      <PageLoader />
+    )
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-b from-blue-100 to-white py-12 px-4 sm:px-6 lg:px-8">
-      {loading ? <PageLoader/> :
-
       <div className="max-w-4xl mx-auto bg-white rounded-xl shadow-2xl overflow-hidden">
         <div className="bg-blue-600 py-6">
           <h1 className="text-center text-white text-3xl font-extrabold">
@@ -478,7 +482,7 @@ const Create = () => {
             </Button>
           </div>
         </form>
-      </div>}
+      </div>
     </div>
   );
 };

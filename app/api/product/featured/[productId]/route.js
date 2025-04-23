@@ -15,7 +15,7 @@ export async function GET(req) {
     }
 };
 
-export async function PUT(req, { params }) {
+export async function PUT(req, {params}) {
 
     await connect();
     const { productId } = params;

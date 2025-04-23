@@ -27,7 +27,7 @@ export async function GET(req) {
             _id: { $in: user.wishlist }
         });
 
-        return NextResponse.json({ item: wishlistItems });
+        return NextResponse.json({ items: wishlistItems });
 
 
     } catch (error) {

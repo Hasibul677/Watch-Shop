@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from "react";
 import { useSwipeable } from "react-swipeable";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import Image from "next/image";
-import { trusted } from "mongoose";
 
 const ProductImageGallery = ({ product }) => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -12,7 +11,7 @@ const ProductImageGallery = ({ product }) => {
     onSwipedLeft: () => nextImage(),
     onSwipedRight: () => prevImage(),
     preventDefaultTouchmoveEvent: true,
-    trackMouse: trusted,
+    trackMouse: true,
   });
 
   const nextImage = () => {

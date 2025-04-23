@@ -27,7 +27,25 @@ export default function ProductGrid({
 
   useEffect(() => {
     setProducts(initialProducts);
-  }, [initialProducts])
+  }, [initialProducts]);
+
+  const totalPages = Math.ceil(products.length / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentProducts = products.slice(startIndex, endIndex);
+  const handleSort = (order) => {
+    setSortOrder(order);
+    const sortedProducts = [...products].sort((a, b) => {
+      if (order === "highToLow") {
+        return b.price - a.price;
+      } else if (order === "lowToHigh") {
+        return a.price - b.price
+      }
+      return 0;
+    });
+    setProducts(sortedProducts);
+    setCurrentPage(1);
+  }
 
   const handleBrandChange = (brand) => {
     setSelectBrand(brand);
@@ -38,7 +56,7 @@ export default function ProductGrid({
       router.push(`/products/brand/${encodeURIComponent(brand.toLowerCase().replace(/\s+/g, ""))}`);
     }
     setCurrentPage(1)
-  }
+  };
 
 
   return (
@@ -91,8 +109,8 @@ export default function ProductGrid({
               key={index}
               onClick={() => setCurrentPage(index + 1)}
               className={`mx-1 px-3 py-1 rounded ${currentPage === index + 1
-                  ? "bg-slate-600 text-white focus:outline-none focus:border-none"
-                  : "bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:border-none"
+                ? "bg-slate-600 text-white focus:outline-none focus:border-none"
+                : "bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:border-none"
                 }`}
             >
               {index + 1}
