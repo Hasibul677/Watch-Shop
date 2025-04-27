@@ -16,7 +16,7 @@ const ProductDetailsSinglePage = ({
   toggleWishlist,
 }) => {
   return (
-    <div className="container mx-auto sm:px-[15rem] py-12 max-w-full">
+    <div className="container mx-auto sm:px-[8rem] py-12 max-w-full">
       <div className="flex flex-col md:flex-row gap-12 bg-white rounded-t-xl shadow-lg overflow-hidden">
         <ProductImageGallery product={product} />
         <ProdDetailsPrice

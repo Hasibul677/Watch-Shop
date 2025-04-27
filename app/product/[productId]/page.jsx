@@ -28,7 +28,7 @@ export default function ProductPage() {
     const fetchProduct = async () => {
       try {
         setLoading(true)
-        const res = await axios.get(`/api/product/${product}`);
+        const res = await axios.get(`/api/product/${productId}`);
         setProduct(res.data);
 
         if (session) {
@@ -57,7 +57,7 @@ export default function ProductPage() {
     try {
       setLoading(true);
       const res = await axios.get(`/api/review/allReviews?productId=${productId}`);
-      setAllReviews(res.data.reviews);
+      setAllReviews(res.data.review);
 
     } catch (error) {
       setError("Failed to load reviews");

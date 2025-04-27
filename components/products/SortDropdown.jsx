@@ -1,4 +1,3 @@
-// components/SortDropdown.jsx
 import { useState } from "react";
 
 export default function SortDropdown({ onSort }) {

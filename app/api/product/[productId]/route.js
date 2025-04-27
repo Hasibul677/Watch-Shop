@@ -2,10 +2,10 @@ import { NextResponse } from 'next/server';
 import connect from '@/utils/config/dbConnection';
 import { Product } from '@/utils/models/Product';
 
-export async function GET(req, context) {
+export async function GET(req, {params}) {
     await connect();
 
-    const { productId } = await context.params;
+    const { productId } = await params;
 
     try {
         const product = await Product.findById(productId);

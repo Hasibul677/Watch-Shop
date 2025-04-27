@@ -5,7 +5,7 @@ import { Product } from '@/utils/models/Product';
 export async function GET(req, {params}) {
     await connect();
 
-    const { brand } = params;
+    const { brand } = await params;
 
     try {
         function createFlexibleSearchPattern(input) {

@@ -12,7 +12,7 @@ export default function ProductCard({ product, onWishlistUpdate }) {
   const [isHovered, setIsHovered] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
-  const addItem = useCartStore((state) => state.addIteam);
+  const addItem = useCartStore((state) => state.addItem);
   const [wishlistItems, setWishlistItems] = useState([]);
 
   useEffect(() => {
