@@ -1,72 +1,74 @@
 import mongoose from "mongoose";
-import { Product } from "./Product";
 
-const orderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema(
+  {
     name: {
-        type: String,
-        required: [true, "please provide customers name"]
+      type: String,
+      required: [true, "Please provide the customer's full name"],
     },
     email: {
-        type: String,
-        required: [true, "please provide customers email"],
+      type: String,
+      required: [true, "Please provide the customer's email"],
     },
     city: {
-        type: String,
-        required: [true, "please provide customers city"],
+      type: String,
+      required: [true, "Please provide the city"],
     },
     postalCode: {
-        type: String,
-        required: [true, "please provide customers postal code"],
+      type: String,
+      required: [true, "Please provide the postal code"],
     },
     streetAddress: {
-        type: String,
-        required: [true, "please provide customers adress"],
+      // Changed from streetAdress to streetAddress
+      type: String,
+      required: [true, "Please provide the customer's address"],
     },
     country: {
-        type: String,
-        required: [true, "please provide customers country"],
+      type: String,
+      required: [true, "Please provide the country"],
     },
     paid: {
-        type: Boolean,
-        default: false
+      type: Boolean,
+      default: false,
     },
-    cartProducts: [{
-        product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: "Product"
-        },
-        price: { type: String }
-    }],
+    cartProducts: [
+      {
+        product: { type: mongoose.Schema.Types.ObjectId, ref: "Product" },
+        quantity: Number,
+        price: Number,
+      },
+    ],
     updatedAt: {
-        type: Date,
-        default: Date.now
+      type: Date,
+      default: Date.now,
     },
     status: {
-        type: String,
-        enum: [
-            "processing",
-            "pending",
-            "shipped",
-            "delivered",
-            "cancelled",
-            "payment_failed"
-        ],
-        default: "pending"
+      type: String,
+      enum: [
+        "pending",
+        "processing",
+        "shipped",
+        "delivered",
+        "cancelled",
+        "payment_failed",
+      ],
+      default: "pending",
     },
     total: {
-        type: Number,
-        required: [true, "Must have total number"]
+      type: Number,
+      required: [true, "Total order amount is required"],
     },
     user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
     },
     createdAt: {
-        type: Date,
-        default: Date.now
-    }
-
-}, { timestamps: true });
+      type: Date,
+      default: Date.now,
+    },
+  },
+  { timestamps: true }
+);
 
 const Order = mongoose.models.Order || mongoose.model("Order", orderSchema);
 

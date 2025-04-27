@@ -140,7 +140,7 @@ const Cart = ({ ids }) => {
   }
 
   return (
-    <div>
+    <div className="pb-40">
       <div className="h-screen mb-20 sm:mb-0 sm:block hidden">
         <div className="max-w-4xl sm:mt-10 mt-4 sm:pt-16 sm:pb-20 mx-auto p-6 bg-slate-50 shadow-xl rounded-lg">
           <h2 className="text-3xl font-bold text-center py-6 text-gray-800">
@@ -442,7 +442,7 @@ const Cart = ({ ids }) => {
                   className="w-full p-2 border border-gray-300 rounded focus:ring focus:ring-blue-200"
                 />
               </div>
-              <div className="flex justify-center mt-6">
+              <div className="flex justify-center mt-16">
                 <button
                   onClick={handleCheckout}
                   className="bg-gradient-to-b sm:w-[50%] w-full from-blue-400 to-blue-500 text-white py-2 px-4 rounded-md hover:from-blue-500 hover:to-blue-600 transition-colors duration-150 ease-in-out shadow-lg flex items-center justify-center space-x-2"
