@@ -61,7 +61,8 @@ export async function PUT(req) {
             }, { status: 401 });
         }
 
-        const { productId } = await req.json();
+        const requestBody = await req.json();
+        const productId = requestBody.data?.productId;
 
         if (!productId) {
             return NextResponse.json({
@@ -109,39 +110,41 @@ export async function DELETE(req) {
 
         if (!session) {
             return NextResponse.json({
-                error: "user not found or not authenticated"
+                error: "User not found or not authenticated"
             }, { status: 401 });
         }
 
-        const { productId } = await req.json();
+        const requestBody = await req.json();
+        const productId = requestBody.productId;
 
         if (!productId) {
             return NextResponse.json({
-                error: "Product not found"
-            }, { status: 404 });
-        };
+                error: "Product ID is required"
+            }, { status: 400 });
+        }
 
         const user = await User.findOne({ email: session.user.email });
 
         if (!user) {
             return NextResponse.json({
-                error: "user not found"
+                error: "User not found"
             }, { status: 404 });
-        };
+        }
 
-        user.wishlist = user.wishlist.filter((id) => id.toString() !== productId)
+        // Convert both IDs to string for comparison
+        user.wishlist = user.wishlist.filter(id => id.toString() !== productId.toString());
         await user.save();
 
         return NextResponse.json({
-            message: "Product removed form wishlist"
+            message: "Product removed from wishlist",
+            items: user.wishlist
         }, { status: 200 });
 
-
     } catch (error) {
+        console.error("Wishlist DELETE error:", error);
         return NextResponse.json({
-            error: "Internal server error at the wishlist delete route"
+            error: "Internal server error"
         }, { status: 500 });
-
     }
-};
+}
 

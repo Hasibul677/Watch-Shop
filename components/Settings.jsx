@@ -8,9 +8,10 @@ import { Card, CardHeader, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import toast from "react-hot-toast";
 import { User, Lock, Bell, XCircle } from "lucide-react";
+import { updateSession } from 'next-auth/react';
 
 const Settings = () => {
-    const { data: session } = useSession();
+    const { data: session, update } = useSession();
     const [personalInfo, setPersonalInfo] = useState({
         name: "",
         email: "",
@@ -54,12 +55,12 @@ const Settings = () => {
         setPassword({ ...password, [e.target.name]: e.target.value });
     };
 
-    const handleCommunicationPrefsChange = (e) => {
+    const handleCommunicationPrefsChange = (key) => {
         setCommunicationPrefs((prev) => {
             const newPref = { ...prev, [key]: !prev[key] };
             setPreferencesChanged(true);
             return newPref;
-        })
+        });
     };
 
     const changePassword = async () => {
@@ -88,7 +89,8 @@ const Settings = () => {
         try {
             const res = await axios.post("/api/update-notification-preferences", communicationPrefs
             );
-            if (res.status === 200) {
+            if (res.status === 200 || res.status === 201) {
+                toast.success("Successfully updated preferences")
                 await update({
                     ...session,
                     user: {
@@ -96,7 +98,6 @@ const Settings = () => {
                         notificaionPreferances: communicationPrefs
                     },
                 });
-
                 setPreferencesChanged(false);
             } else {
                 throw new Error("Failed to update preferences");

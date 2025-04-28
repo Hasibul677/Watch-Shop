@@ -22,7 +22,7 @@ const ProductDetails = ({ product }) => {
           data: { productId: product._id }
         });
       } else {
-        await axios.post("/api/wishlist", {
+        await axios.put("/api/wishlist", {
           data: { productId: product._id }
         });
       }

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "../ui/input";
 import Link from "next/link";
 import Image from "next/image";
@@ -10,9 +10,15 @@ const SearchDrawer = ({
   searchTerm,
   handleChange,
   handleSearchClose,
-  firstTwelveItems,
   resultArr,
 }) => {
+  
+  const [firstTwelveItems, setFirstTwelveItems] = useState([]);
+
+  useEffect(() => {
+    setFirstTwelveItems(resultArr.slice(0, 10));
+  }, [resultArr]);
+
   return (
     searchOpen && (
       <div
@@ -126,7 +132,7 @@ const SearchDrawer = ({
               </div>
             )}
           </div>
-          {firstTwelveItems && resultArr.length > 12 && (
+          {firstTwelveItems && resultArr.length > 10 && (
             <div className="p-4 bg-gray-50 border-t border-gray-200 flex justify-center">
               <Button className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors duration-300">
                 <Link href={`/searchedProducts/${searchTerm?.search}`}>

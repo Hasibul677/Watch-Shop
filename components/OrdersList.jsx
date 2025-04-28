@@ -11,19 +11,23 @@ const OrdersList = () => {
   const [loading, setLoading] = useState(true);
   const [loadingMore, setLoadingMore] = useState(false);
   const [hasMore, setHasMore] = useState(false);
-  const [page, setPage] = useState(false);
+  const [page, setPage] = useState(1); // Initialize to 1 instead of false
 
   const observer = useRef();
 
-  const lastOrderElementRef = useCallback((node) => {
-    if (loading) return;
-    if (observer.current) observer.current.disconnect();
-    observer.current = new IntersectionObserver((entries) => {
-      setPage((prevPage) => prevPage + 1);
-    });
-    if (node) observer.current.observer(node);
-  }, [loading, hasMore]);
-
+  const lastOrderElementRef = useCallback(
+    (node) => {
+      if (loading || !hasMore) return;
+      if (observer.current) observer.current.disconnect();
+      observer.current = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting && hasMore) {
+          setPage((prevPage) => prevPage + 1);
+        }
+      });
+      if (node) observer.current.observe(node); // Fixed: observe() instead of observer()
+    },
+    [loading, hasMore]
+  );
 
   useEffect(() => {
     if (session?.user?.email) {
@@ -33,19 +37,25 @@ const OrdersList = () => {
 
   const fetchOrders = async () => {
     try {
-      const res = await axios.get(`/api/orders?page=${page}&limit=10&email=${session.user.email}`);
-      setOrders((prevOrders) => [...prevOrders, ...res.data.orders]);
+      setLoadingMore(true);
+      const res = await axios.get(
+        `/api/orders?page=${page}&limit=10&email=${session.user.email}`
+      );
+      setOrders((prevOrders) =>
+        page === 1 ? res.data.orders : [...prevOrders, ...res.data.orders]
+      );
       setHasMore(res.data.hasMore);
     } catch (error) {
-      console.log(error)
+      console.log(error);
+      toast.error("Failed to load orders");
     } finally {
       setLoading(false);
-      setLoadingMore(false)
+      setLoadingMore(false);
     }
   };
 
   if (!session) {
-    return <p>Please login to use this functionality</p>
+    return <p>Please login to view your orders</p>;
   }
 
   return (

@@ -75,7 +75,7 @@ const Navbar = () => {
     if (!search) return;
     setIsSearching(true);
     try {
-      const res = await axios.get(`/api/products/${search}`);
+      const res = await axios.get(`/api/products?search=${search}`);
       setIsSearching(false);
       if (res.status === 200) {
         setResultArr(res.data);

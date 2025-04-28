@@ -33,12 +33,11 @@ const Wishlist = () => {
                 setLoading(true);
                 await new Promise((resolve) => setTimeout(resolve, 1500));
                 const res = await axios.get(`/api/wishlist?page=${page}&limit=10`);
-                if (res.data && Array.isArray(res.data.items)) {
-                    setWishlistItems((prevItem) => {
-                        const newItem = res.data.items.filter((item) => !prevItem._id === item._id);
-                        return [...prevItem, ...newItem]
-                    });
-                    setHasMore(res.data.hasMore);
+                const {items, hasMore} = res.data;
+                
+                if (items && Array.isArray(items)) {
+                    setWishlistItems(items);
+                    setHasMore(hasMore);
                 }
 
             } catch (error) {
@@ -51,18 +50,20 @@ const Wishlist = () => {
         fetchWishlist();
     }, [page]);
 
-    const removeFromWishlist = async () => {
+    const removeFromWishlist = async (productId) => {
         try {
             await axios.delete("/api/wishlist", { data: { productId } });
             toast.success("Removed from wishlist");
-            setWishlistItems((prevItem) => {
-                prevItem.filter(item => item._id !== productId);
-            });
+            
+            // Fixed: Return the filtered array
+            setWishlistItems(prevItems => prevItems.filter(item => item._id !== productId));
+            
             if (wishlistItems.length <= 10 && hasMore) {
-                setPage((prevPage) => prevPage + 1)
+                setPage(prevPage => prevPage + 1);
             }
         } catch (error) {
-            console.log(error)
+            console.log(error);
+            toast.error("Failed to remove from wishlist");
         }
     }
 
@@ -70,8 +71,6 @@ const Wishlist = () => {
         addItem(product);
         toast.success("Added product to cart")
     }
-
-
     return (
         <Card className="w-full bg-white shadow-lg rounded-2xl overflow-hidden transition-all duration-300 hover:shadow-xl">
             <CardHeader className="bg-gradient-to-r from-[#3a4063] to-[#535C91] p-6">
@@ -80,12 +79,12 @@ const Wishlist = () => {
                 </h2>
             </CardHeader>
             <CardContent className="p-4 sm:p-6 space-y-4">
-                {wishlistItems.length === 0 && !loading ? (
+                {wishlistItems?.length === 0 && !loading ? (
                     <p className="text-center text-gray-500 py-8">
                         Your wishlist is empty.
                     </p>
                 ) : (
-                    wishlistItems.map((item, index) => (
+                    wishlistItems?.map((item, index) => (
                         <div
                             key={item._id}
                             ref={

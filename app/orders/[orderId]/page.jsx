@@ -37,7 +37,7 @@ export default function OrderDetails() {
     };
 
     if (!order) {
-        return <div className="text-centermt-8">Order Not Found</div>
+        return <div className="bg-gray-100 min-h-screen flex justify-center items-center">Order Not Found</div>
     };
 
     const formatDate = (dateString) => {

@@ -52,7 +52,7 @@ export default function ProductCard({ product, onWishlistUpdate }) {
         setWishlistItems((prevItems) => prevItems.filter((item) => item._id !== product._id));
         toast.success("Removed the item from wishlist");
       } else {
-        await axios.post("/api/wishlist", { data: { productId: product._id } });
+        await axios.put("/api/wishlist", { data: { productId: product._id } });
         setWishlistItems((prevItems) => [...prevItems, product]);
         toast.success("Added the item to the wishlist")
       };

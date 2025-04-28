@@ -106,7 +106,7 @@ export default function ProductPage() {
         setIsInWishlist(false);
         toast.success("Removed from wishlist");
       } else {
-        await axios.post("/api/wishlist", { productId: product._id });
+        await axios.put("/api/wishlist", { productId: product._id });
         setIsInWishlist(true);
         toast.success("Added to wishlist");
       }
