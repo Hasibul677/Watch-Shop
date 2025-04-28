@@ -16,7 +16,7 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import LoadingErrorComponent from "@/components/Loader/LoadingErrorComponent";
 import Image from "next/image";
-import EditProductButton from './../../components/EditProductButton';
+
 
 const EditProductButton = ({ productId }) => {
     const router = useRouter();
@@ -111,12 +111,19 @@ const Products = () => {
         }
         try {
             if (wishlist.includes(productId)) {
+                // Remove from wishlist
                 await axios.delete("/api/wishlist", { data: { productId } });
                 setWishlist(wishlist.filter((id) => id !== productId));
                 toast.success("Removed item from wishlist");
+            } else {
+                // Add to wishlist
+                await axios.put("/api/wishlist", { data: { productId: productId }});
+                setWishlist([...wishlist, productId]);
+                toast.success("Added item to wishlist");
             }
         } catch (error) {
             console.log(error);
+            toast.error("Failed to update wishlist");
         }
     };
 
@@ -132,7 +139,7 @@ const Products = () => {
     if (loading) {
         return <LoadingErrorComponent loading={true} />
     };
-    
+
     if (error) {
         return <LoadingErrorComponent error={error} />
     };

@@ -32,7 +32,7 @@ export default function ProductGrid({
   const totalPages = Math.ceil(products.length / itemsPerPage);
   const startIndex = (currentPage - 1) * itemsPerPage;
   const endIndex = startIndex + itemsPerPage;
-  const currentProducts = products.slice(startIndex, endIndex);
+  const currentProducts = products?.slice(startIndex, endIndex);
   const handleSort = (order) => {
     setSortOrder(order);
     const sortedProducts = [...products].sort((a, b) => {

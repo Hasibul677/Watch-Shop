@@ -64,7 +64,6 @@ export async function POST(req, res) {
         water
     });
 
-    console.log("New Product created", newProduct);
     const savedProduct = await newProduct.save();
     return NextResponse.json({
         message: "Product created successfully",

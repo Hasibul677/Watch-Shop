@@ -20,7 +20,7 @@ export async function GET(req) {
             .limit(limit);
 
         if (foundProducts) {
-            NextResponse.json({
+            return NextResponse.json({
                 products: foundProducts,
                 total: totalProducts,
                 page: page,

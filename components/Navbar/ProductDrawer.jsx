@@ -35,24 +35,18 @@ const ProductDrawer = ({
                   "Cartier",
                   "Tudor",
                 ].map((cat) => (
-                  <li
+                  <Link
                     key={cat}
-                    onMouseEnter={() => setCategory(cat)}
-                    className={`text-lg w-[80%] cursor-pointer py-[5px] ml-4 ${
-                      category === cat
-                        ? " bg-sky-400/30 rounded-md fadeRight"
-                        : null
-                    }`}
+                    href={`/products/brand/${cat.toLowerCase().replace(" ", "")}`}
                   >
-                    <Link
-                      href={`/products/brand/${cat
-                        .toLowerCase()
-                        .replace(" ", "")}`}
-                      className="pl-2 text-lg"
+                    <li
+                      onMouseEnter={() => setCategory(cat)}
+                      className={`text-lg w-[80%] cursor-pointer py-[5px] ml-4 ${category === cat ? " bg-sky-400/30 rounded-md fadeRight" : null
+                        }`}
                     >
-                      {cat}
-                    </Link>
-                  </li>
+                      <span className="pl-2 text-lg">{cat}</span>
+                    </li>
+                  </Link>
                 ))}
               </ul>
             </div>
