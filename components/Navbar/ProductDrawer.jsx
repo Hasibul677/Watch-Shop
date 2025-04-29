@@ -16,14 +16,14 @@ const ProductDrawer = ({
         onMouseEnter={() => setProductOpen(true)}
       >
         <div className="flex justify-between w-full h-full">
-          <div className="w-full h-full flex flex-col justify-between">
+          <div className="w-full h-full flex flex-col justify-around">
             <div>
               <div className="w-full flex justify-center">
                 <p className="text-2xl pt-2 text-black font-bold">Category</p>
               </div>
               <div className="bg-gray-400 h-[2px] w-full"></div>
             </div>
-            <div className="bg-slate-100">
+            <div >
               <ul>
                 {[
                   "Rolex",

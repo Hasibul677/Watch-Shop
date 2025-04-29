@@ -15,7 +15,7 @@ const AdminDrawer = ({ admin, category, setCategory }) => {
               </div>
               <div className="bg-gray-400 h-[2px] w-full"></div>
             </div>
-            <div className="bg-slate-100">
+            <div>
               <ul>
                 {["Create Product", "Orders", "Products"].map((cat) => (
                   <Link
