@@ -8,36 +8,36 @@ const AdminDrawer = ({ admin, category, setCategory }) => {
         <div className="flex justify-between w-full h-full">
           <div className="w-full h-full flex flex-col justify-between">
             <div>
-              <div className="bg-slate-100 h-14 w-full flex justify-center">
+              <div className="w-full flex justify-center">
                 <span className="text-2xl pt-2 text-black font-bold">
                   Admin Panel
                 </span>
               </div>
               <div className="bg-gray-400 h-[2px] w-full"></div>
             </div>
-            <div>
+            <div className="bg-slate-100">
               <ul>
                 {["Create Product", "Orders", "Products"].map((cat) => (
-                  <li
+                  <Link
                     key={cat}
-                    onMouseEnter={() => setCategory(cat)}
-                    className={`text-lg w-[80%] cursor-pointer py-[5px] ml-4 ${
-                      category === cat
-                        ? "bg-sky-400/30 rounded-md fadeRight"
-                        : null
-                    }`}
+                    href={
+                      cat === "Create Product"
+                        ? "/create"
+                        : `/${cat.toLowerCase().replace(" ", "")}`
+                    }
                   >
-                    <Link
-                      href={
-                        cat === "Create Product"
-                          ? "/create"
-                          : `/${cat.toLowerCase().replace(" ", "")}`
-                      }
-                      className="pl-2 text-lg"
+                    <li
+                      onMouseEnter={() => setCategory(cat)}
+                      className={`text-lg cursor-pointer py-[5px] ml-4 ${category === cat
+                          ? "bg-sky-400/30 rounded-md fadeRight"
+                          : null
+                        }`}
                     >
-                      {cat}
-                    </Link>
-                  </li>
+                      <span className="pl-2 text-lg">
+                        {cat}
+                      </span>
+                    </li>
+                  </Link>
                 ))}
               </ul>
             </div>

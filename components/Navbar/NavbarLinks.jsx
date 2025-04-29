@@ -8,6 +8,7 @@ const NavbarLinks = ({ session, setProductOpen, setAdmin }) => {
       <li className="px-2">
         <Button
           onMouseEnter={() => setProductOpen(true)}
+          onMouseLeave={() =>  setAdmin(false)}
           onClick={() => setProductOpen((prev) => !prev)}
         >
           <span className="text-lg no-underline transition-all duration-300 hover:text-sky-400/90">
@@ -16,7 +17,11 @@ const NavbarLinks = ({ session, setProductOpen, setAdmin }) => {
         </Button>
       </li>
       <li className="px-2">
-        <Button>
+        <Button
+          onMouseLeave={() => {
+            setProductOpen(false)
+            setAdmin(false)
+          }}>
           <Link href="/blog">
             <span className="text-lg no-underline transition-all duration-300 hover:text-sky-400/90">
               Blog
@@ -25,7 +30,11 @@ const NavbarLinks = ({ session, setProductOpen, setAdmin }) => {
         </Button>
       </li>
       <li className="px-2">
-        <Button>
+        <Button
+          onMouseLeave={() => {
+            setProductOpen(false)
+            setAdmin(false)
+          }}>
           <Link href="/contact">
             <span className="text-lg no-underline transition-all duration-300 hover:text-sky-400/90">
               Contact
@@ -34,7 +43,12 @@ const NavbarLinks = ({ session, setProductOpen, setAdmin }) => {
         </Button>
       </li>
       <li className="px-2">
-        <Button>
+        <Button
+          onMouseLeave={() => {
+            setProductOpen(false)
+            setAdmin(false)
+          }}
+          >
           <Link href="/about">
             <span className="text-lg no-underline transition-all duration-300 hover:text-sky-400/90">
               About
@@ -46,6 +60,7 @@ const NavbarLinks = ({ session, setProductOpen, setAdmin }) => {
         <li className="px-2">
           <Button
             onMouseEnter={() => setAdmin(true)}
+            onMouseLeave={() => setProductOpen(false)}
             onClick={() => setAdmin((prev) => !prev)}
           >
             <span className="text-lg no-underline transition-all duration-300 hover:text-emerald-600/90">
