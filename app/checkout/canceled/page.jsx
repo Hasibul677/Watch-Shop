@@ -27,18 +27,10 @@ export default function CheckoutCanceled() {
         </p>
         <div className="mt-8">
           <Link
-            href="/cart"
+            href="/"
             className="w-full flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
           >
-            Return to Cart
-          </Link>
-        </div>
-        <div className="mt-4">
-          <Link
-            href="/"
-            className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
-          >
-            Continue Shopping
+          Homepage
           </Link>
         </div>
       </div>
