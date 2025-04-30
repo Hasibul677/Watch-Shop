@@ -1,12 +1,18 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import ProfileWithLogout from "../ProfileWithLogout";
 
 const UserSection = ({ session }) => {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    setUser(session?.user)
+  }, [session])
+
   return (
     <div>
-      {session ? (
+      {user?.name ? (
         <ProfileWithLogout />
       ) : (
         <ul className="flex mx-0 mt-2 mr-4">

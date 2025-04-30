@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import Link from "next/link";
@@ -6,16 +6,21 @@ import { Button } from "./ui/button";
 
 const ProfileWithLogout = () => {
   const { data: session } = useSession();
-  const user = session?.user;
   const [isHovered, setIsHovered] = useState(false);
+  const [user, setUser] = useState({});
+  console.log(user)
+
+  useEffect(()=>{
+    setUser(session?.user)
+  },[session])
 
   return (
     <div
       className="relative flex items-center pr-8 mt-2"
       onMouseEnter={() => setIsHovered(true)}
     >
-      <div className="text-center font-semibold mr-2">Profile</div>
-      <div className="relative">
+      {user?.name && <div className="text-center font-semibold mr-2">Profile</div>}
+      {user?.name && <div className="relative">
         <Image
           onMouseEnter={() => setIsHovered(true)}
           src={user?.image || "/profile.jpg"}
@@ -25,7 +30,7 @@ const ProfileWithLogout = () => {
           alt="Profile Picture"
           unoptimized
         />
-        {isHovered && (
+        {(isHovered && user?.name) && (
           <div
             onMouseLeave={() => setIsHovered(false)}
             className="absolute top-full right-0 mt-4 w-32 bg-white border border-gray-200 rounded-md shadow-lg z-10"
@@ -45,7 +50,7 @@ const ProfileWithLogout = () => {
             </Button>
           </div>
         )}
-      </div>
+      </div>}
     </div>
   );
 };

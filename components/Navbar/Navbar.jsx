@@ -130,7 +130,7 @@ const Navbar = () => {
             <Image
               alt="s"
               onClick={() => router.push("/")}
-              src="/logo1.png"
+              src="/logo1.jpg"
               width={65}
               height={35}
               className="cursor-pointer p-2 mt-[12px]"

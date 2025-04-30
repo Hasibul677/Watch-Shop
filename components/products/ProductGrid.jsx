@@ -19,10 +19,7 @@ export default function ProductGrid({
     "Patek Philipe",
     "Audemars Piguet",
     "Richard Mille",
-    "Omega",
-    "IWC",
-    "Cartier",
-    "Tudor",
+    "Omega"
   ];
 
   useEffect(() => {
@@ -103,20 +100,24 @@ export default function ProductGrid({
       </div>
 
       {totalPages > 1 && (
-        <div className="flex justify-center items-center mt-8">
-          {[...Array(totalPages)].map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentPage(index + 1)}
-              className={`mx-1 px-3 py-1 rounded ${currentPage === index + 1
-                ? "bg-slate-600 text-white focus:outline-none focus:border-none"
-                : "bg-gray-200 text-gray-700 hover:bg-gray-300 focus:outline-none focus:border-none"
-                }`}
-            >
-              {index + 1}
-            </button>
-          ))}
-        </div>
+        <div className="flex justify-center items-center mt-12 space-x-1.5">
+        {[...Array(totalPages)].map((_, index) => (
+          <button
+            key={index}
+            onClick={() => setCurrentPage(index + 1)}
+            className={`relative mx-0.5 w-10 h-10 flex items-center justify-center rounded-full text-sm font-medium transition-all duration-300 ${
+              currentPage === index + 1
+                ? "bg-gradient-to-br from-slate-700 to-slate-900 text-white shadow-lg shadow-slate-400/20 transform scale-105"
+                : "bg-white text-slate-600 border border-slate-200 hover:bg-slate-50 hover:border-slate-300 hover:text-slate-800 hover:shadow-md"
+            }`}
+          >
+            {index + 1}
+            {currentPage === index + 1 && (
+              <span className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-slate-100"></span>
+            )}
+          </button>
+        ))}
+      </div>
       )}
     </div>
   );

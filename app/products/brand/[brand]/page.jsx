@@ -77,11 +77,34 @@ export default function CategoryPage() {
         <p className="mb-6 text-slate-700">
           Total Watches Available: {products.length}
         </p>
-        <ProductGrid
+        {products.length ? <ProductGrid
           products={products}
           wishlist={wishlist}
           onWishlistUpdate={handleWishlistUpdate}
-        />
+        /> :
+          <div className="flex flex-col items-center justify-center py-16 px-4 text-center">
+            <svg
+              className="w-24 h-24 text-red-400 mb-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+              />
+            </svg>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">
+              No products found
+            </h3>
+            <p className="text-gray-500 max-w-md">
+              We couldn't find any products matching your criteria. Try adjusting your filters or search terms.
+            </p>
+          </div>
+        }
       </main>
     </div>
   );
