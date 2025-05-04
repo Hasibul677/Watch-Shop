@@ -37,7 +37,6 @@ const FeaturedProduct = () => {
         fetchFeaturedProduct();
     }, []);
 
-    console.log("featuredWatch1", featuredWatch1)
 
     return (
         <header className="relative bg-gradient-to-r from-slate-300 to-slate-400 text-white sm:h-[58rem] flex items-center overflow-hidden">
