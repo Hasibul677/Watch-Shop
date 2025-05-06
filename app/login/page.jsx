@@ -10,10 +10,11 @@ import { Input } from "@/components/ui/input";
 import { FaGoogle } from "react-icons/fa";
 import { motion } from "framer-motion";
 import AnimatedBackground from "./AnimatedBackground";
+import PageLoader from "@/commonComponents/Loader/page";
 
 const Login = () => {
   const router = useRouter();
-  const {data: session} = useSession();
+  const { data: session, status } = useSession();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [user, setUser] = useState({
@@ -55,7 +56,7 @@ const Login = () => {
         setError("Invalid Credentials");
       } else {
         setError("");
-        router.push("/dashboard");
+        router.push("/");
       }
     } catch (error) {
       setError("An error occurred. Please try again.");
@@ -64,11 +65,19 @@ const Login = () => {
     }
   };
 
-  useEffect(()=>{
-    if(session?.user){
+  useEffect(() => {
+    if (session?.user) {
       router.push("/");
     }
-  },[session?.user]);
+  }, [session?.user]);
+
+  if (status === "loading" || status === "authenticated") {
+    return <div className="flex flex-col min-h-screen">
+      <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-500"></div>
+      </div>
+    </div>;
+  }
 
 
   return (

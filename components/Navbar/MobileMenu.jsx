@@ -332,7 +332,7 @@ const MobileMenu = ({
                   <div className="text-center my-auto ">
                     <Button
                       className="ml-4 border px-4 py-2 rounded-sm text-white bg-red-500 hover:bg-red-600 transition"
-                      onClick={() => signOut()}
+                      onClick={() => signOut({ callbackUrl: "/" })}
                     >
                       Logout
                     </Button>

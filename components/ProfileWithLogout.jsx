@@ -9,13 +9,14 @@ const ProfileWithLogout = () => {
   const [isHovered, setIsHovered] = useState(false);
   const [user, setUser] = useState(null);
 
+
   useEffect(() => {
     if (session?.user) {
       setUser(session.user);
     }
   }, [session]);
 
-  if (status === "loading" || !user) {
+  if (status === "loading") {
     return <div className="pr-8 mt-2">Loading...</div>;
   }
 
@@ -49,7 +50,7 @@ const ProfileWithLogout = () => {
               variant="myButton"
               onMouseEnter={() => setIsHovered(true)}
               className="w-full flex justify-center px-4 py-2 text-left"
-              onClick={() => signOut()}
+              onClick={() => signOut({ callbackUrl: "/" })}
             >
               Logout
             </Button>

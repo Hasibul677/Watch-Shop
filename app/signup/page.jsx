@@ -59,6 +59,7 @@ const AnimatedBackground = () => {
 };
 
 const Signup = () => {
+  const {data: session, status} = useSession();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -112,8 +113,6 @@ const Signup = () => {
 
         if (signInResult.error) {
           setError("Error signing in")
-        } else {
-          router.push("/dashboard")
         }
       }
     } catch (error) {
@@ -124,7 +123,19 @@ const Signup = () => {
     }
   }
 
+  useEffect(() => {
+    if (session?.user) {
+      router.push("/");
+    }
+  }, [session?.user]);
 
+  if (status === "loading" || status === "authenticated") {
+    return <div className="flex flex-col min-h-screen">
+      <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
+        <div className="animate-spin rounded-full h-32 w-32 border-t-4 border-b-4 border-blue-500"></div>
+      </div>
+    </div>;
+  }
 
   return (
     <div className="flex justify-center items-center min-h-screen overflow-hidden bg-blue-100 relative">
