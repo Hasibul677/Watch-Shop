@@ -67,7 +67,7 @@ const FeaturedProduct = () => {
                 />
             </div>
 
-            <div className="container mx-auto px-4 py-8 relative z-10">
+            <div className="container mx-auto px-5 py-8 relative z-10">
                 <motion.h1
                     initial={{ opacity: 0, y: -50 }}
                     animate={{ opacity: 1, y: 0 }}
@@ -91,7 +91,7 @@ const FeaturedProduct = () => {
                     className="bg-white rounded-lg shadow-2xl overflow-hidden text-gray-800"
                 >
                     <div className="md:flex">
-                        <div className="relative group">
+                        <div className="md:w-2/5 relative group">
                             <Image
                                 src={featuredWatch1?.images[0] || HeroImageFallback}
                                 alt={featuredWatch1?.name || "Featured watch"}
